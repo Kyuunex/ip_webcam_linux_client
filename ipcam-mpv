@@ -1,0 +1,5 @@
+#!/bin/bash
+
+adb forward tcp:8080 tcp:8080
+
+mpv http://127.0.0.1:8080/video --no-cache --untimed --no-demuxer-thread --video-sync=audio --vd-lavc-threads=1
