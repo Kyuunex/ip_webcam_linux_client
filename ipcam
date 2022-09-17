@@ -26,7 +26,7 @@ adb wait-for-usb-device
 
 adb forward tcp:$PORT tcp:$PORT
 
-$SUDO modprobe v4l2loopback video_nr=$DEVICE_NUMBER 'card_label=IP Webcam'
+$SUDO modprobe v4l2loopback devices=1 max_buffers=2 exclusive_caps=1 video_nr=$DEVICE_NUMBER 'card_label=IP Webcam'
 
 echo "================================================================"
 echo "If you want to control the resolution, focus, ISO and etc, visit $PROTOCOL://$IP_ADDRESS:$PORT/"
