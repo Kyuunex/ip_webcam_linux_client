@@ -7,7 +7,7 @@ An unofficial Linux client for the [IP Webcam](https://play.google.com/store/app
 + `ffmpeg`
 + On Arch based systems, you'll also need to install `android-udev` so you can use `adb` without root.
 
-If you have an Arch based system (Arch/Manjaro), you can just do `sudo pacman -S adb v4l2loopback-dkms ffmpeg android-udev` in terminal and you're good to go.
+If you have an Arch based system (Arch/Manjaro), you can just do `sudo pacman -S android-tools v4l2loopback-dkms ffmpeg android-udev --needed` in terminal and you're good to go.
 
 # How to use
 + It is recommended to put this file in PATH, so you can call it from the terminal from everywhere.
