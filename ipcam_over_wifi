@@ -1,0 +1,33 @@
+#!/bin/bash
+
+IP_ADDRESS=127.0.0.1
+# Prompt the user for the IP address
+read -p "Enter the IP address [default: $IP_ADDRESS]: " user_input
+
+# Update the IP_ADDRESS variable if the user enters a new value
+if [[ -n "$user_input" ]]; then
+  IP_ADDRESS="$user_input"
+fi
+
+PROTOCOL=https
+PORT=8080
+ENDPOINT=video
+DEVICE_NUMBER=7
+ENCODE_OPTIONS="-c:v copy"
+# ENCODE_OPTIONS="-vcodec rawvideo -pix_fmt yuv420p -threads 0"
+SUDO=sudo
+
+if ! command -v ffmpeg &> /dev/null
+then
+    echo "ffmpeg is not installed!"
+    exit
+fi
+
+$SUDO modprobe v4l2loopback devices=1 max_buffers=2 exclusive_caps=1 video_nr=$DEVICE_NUMBER 'card_label=IP Webcam'
+
+echo "================================================================"
+echo "If you want to control the resolution, focus, ISO and etc, visit $PROTOCOL://$IP_ADDRESS:$PORT/"
+echo "================================================================"
+
+ffmpeg -i "$PROTOCOL://$IP_ADDRESS:$PORT/$ENDPOINT" $ENCODE_OPTIONS -f v4l2 /dev/video$DEVICE_NUMBER
+
